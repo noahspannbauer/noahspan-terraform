@@ -61,7 +61,7 @@ resource "azurerm_container_app" "container_app_api" {
 
   secret {
     name = "azure-storage-connection-string"
-    value = azurerm_storage_account.storage_account.primary_connection_string
+    value = var.storage_account_primary_connection_string
   }
 
   secret {
