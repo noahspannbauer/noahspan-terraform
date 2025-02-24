@@ -68,12 +68,8 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "storage_account_name" {
+variable "storage_account_primary_connection_string" {
   type = string
-}
-
-variable "storage_tables" {
-  type = list(string)
 }
 
 variable "tenant_id" {
