@@ -16,6 +16,11 @@ variable "storage_account_name" {
   type = string
 }
 
+variable "storage_containers" {
+  default = []
+  type = list(string)
+}
+
 variable "storage_queues" {
   default = []
   type = list(string)
