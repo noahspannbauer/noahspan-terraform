@@ -16,6 +16,17 @@ variable "storage_account_name" {
   type = string
 }
 
+variable "storage_blobs" {
+  default = []
+  type = list(object({
+    name = string,
+    storage_container_name = string,
+    type = string,
+    content_type = string,
+    source = string
+  }))
+}
+
 variable "storage_containers" {
   default = []
   type = list(string)
