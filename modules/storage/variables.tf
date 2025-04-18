@@ -15,6 +15,7 @@ variable "resource_group_name" {
 variable "static_websites" {
   default = []
   type = list(object({
+    error_404_document = string
     index_document = string
   }))
 }

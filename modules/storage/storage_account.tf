@@ -4,12 +4,4 @@ resource "azurerm_storage_account" "storage_account" {
     location = data.azurerm_resource_group.resource_group.location
     account_tier = var.account_tier
     account_replication_type = var.account_replication_type
-
-    dynamic static_website {
-        for_each = var.static_websites
-
-        content {
-            index_document = static_website.value.index_document
-        }
-    }
 }
