@@ -3,13 +3,23 @@ variable "app_subdomain_name" {
 }
 
 variable "containers" {
-  type = list(object({
-    name = string
-    image = string
-    cpu = string
-    memory = string
-  }))
   default = []
+  type = list(object({
+    command = optional(string)
+    cpu = optional(string)
+    env = optional(list(object({
+      name = string
+      secret_name = optional(string)
+      value = optional(string)
+    })))
+    image = string
+    memory = optional(string)
+    name = string
+    volume_mounts = optional(list(object({
+      name = string
+      path = string
+    })))
+  }))
 }
 
 variable "container_app_name" {
@@ -21,33 +31,16 @@ variable "container_app_environment_id" {
 }
 
 variable "custom_domain_count" {
-  type = string
-}
-
-variable "init_containers" {
-  default = []
-  type = list(object({
-    name = string
-    image = string
-    cpu = string
-    memory = string
-  }))
-}
-
-variable "registry_password" {
-  sensitive = true
-  type = string
-}
-
-variable "registry_username" {
-  type = string
-}
-
-variable "domain_name" {
+  default = 0
   type = string
 }
 
 variable "dns_zone_resource_group" {
+  default = ""
+  type = string
+}
+
+variable "domain_name" {
   type = string
 }
 
@@ -67,6 +60,35 @@ variable "ingress_target_port" {
 
 variable "ingress_transport" {
   default = "auto"
+  type = string
+}
+
+variable "init_containers" {
+  default = []
+  type = list(object({
+    command = optional(string)
+    cpu = optional(string)
+    envs = optional(list(object({
+      name = string
+      secret_name = optional(string)
+      value = optional(string)
+    })))
+    image = string
+    memory = optional(string)
+    name = string
+    volume_mounts = optional(list(object({
+      name = string
+      path = string
+    })))
+  }))
+}
+
+variable "registry_password" {
+  sensitive = true
+  type = string
+}
+
+variable "registry_username" {
   type = string
 }
 
@@ -93,6 +115,7 @@ variable "secrets" {
 }
 
 variable "storage_account_primary_connection_string" {
+  default = ""
   type = string
 }
 

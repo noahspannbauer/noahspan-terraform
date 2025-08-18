@@ -17,20 +17,38 @@ resource "azurerm_container_app" "container_app_app" {
     dynamic "init_container" {
       for_each = var.init_containers
       content {
-        name = init_container.value["name"]
-        image = container.value["image"]
         cpu = init_container.value["cpu"]
+        image = container.value["image"]
         memory = init_container.value["memory"]
+        name = init_container.value["name"]
       }
     }
 
     dynamic "container" {
       for_each = var.containers
       content {
-        name = container.value["name"]
-        image = container.value["image"]
+        command = container.value["command"]
         cpu = container.value["cpu"]
+        image = container.value["image"]
         memory = container.value["memory"]
+        name = container.value["name"]
+
+        dynamic "env" {
+          for_each = container.value["envs"]
+          content {
+            name = env.value["name"]
+            secret_name = env.value["secret_name"]
+            value = env.value["value"]
+          }
+        }
+
+        dynamic "volume_mount" {
+          for_each = container.value["volume_mounts"]
+          content {
+            name = volume_mount.value["name"]
+            path = volumn_mount.value["path"]
+          }
+        }
       }
     }
   }
