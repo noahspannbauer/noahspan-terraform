@@ -1,4 +1,5 @@
 variable "app_subdomain_name" {
+  default = ""
   type = string
 }
 
@@ -41,6 +42,7 @@ variable "dns_zone_resource_group" {
 }
 
 variable "domain_name" {
+  default = ""
   type = string
 }
 
@@ -55,6 +57,7 @@ variable "ingress_allow_insecure_connections" {
 }
 
 variable "ingress_target_port" {
+  default = 3000
   type = number
 }
 
