@@ -17,7 +17,7 @@ resource "azurerm_container_app" "container_app_app" {
     dynamic "init_container" {
       for_each = var.init_containers != null ? var.init_containers : []
       content {
-        command = container.value["command"] != null ? container.value["command"] : ""
+        command = container.value["command"] != null ? [container.value["command"]] : []
         cpu = init_container.value["cpu"]
         image = container.value["image"]
         memory = init_container.value["memory"]
@@ -28,7 +28,7 @@ resource "azurerm_container_app" "container_app_app" {
     dynamic "container" {
       for_each = var.containers
       content {
-        command = container.value["command"] != null ? container.value["command"] : ""
+        command = container.value["command"] != null ? [container.value["command"]] : []
         cpu = container.value["cpu"]
         image = container.value["image"]
         memory = container.value["memory"]
