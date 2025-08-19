@@ -42,7 +42,7 @@ resource "azurerm_container_app" "container_app_app" {
           }
         }
 
-        dynamic "volume_mount" {
+        dynamic "volume_mounts" {
           for_each = container.value["volume_mounts"]
           content {
             name = volume_mount.value["name"]
