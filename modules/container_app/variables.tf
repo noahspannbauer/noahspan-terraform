@@ -8,7 +8,7 @@ variable "containers" {
   type = list(object({
     command = optional(string)
     cpu = optional(string)
-    env = optional(list(object({
+    envs = optional(list(object({
       name = string
       secret_name = optional(string)
       value = optional(string)
