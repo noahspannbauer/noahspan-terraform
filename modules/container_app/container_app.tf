@@ -16,7 +16,7 @@ resource "azurerm_container_app" "container_app_app" {
 
     dynamic "init_container" {
       for_each = length(var.init_containers) > 0 ? var.init_containers : []
-      iterator = "init_container"
+      iterator = init_container
       content {
         command = init_container.value.command != null ? [init_container.value.command] : []
         cpu = init_container.value.cpu
@@ -26,7 +26,7 @@ resource "azurerm_container_app" "container_app_app" {
 
       dynamic "env" {
         for_each = init_container.value.envs != null ? init_container.value.envs : []
-        iterator = "env"
+        iterator = env
         content {
           name = env.value.name
           secret_name = env.value.secret_name
@@ -36,7 +36,7 @@ resource "azurerm_container_app" "container_app_app" {
 
       dynamic "volume_mounts" {
         for_each = init_container.value.volume_mounts != null ? init_container.value.volume_mounts : []
-        iterator = "volume_mount"
+        iterator = volume_mount
         content {
           name = volume_mount.value.name
           path = volumne_mount.value.path
@@ -48,7 +48,7 @@ resource "azurerm_container_app" "container_app_app" {
 
     dynamic "container" {
       for_each = var.containers
-      iterator = "container"
+      iterator = container
       content {
         command = container.value.command != null ? [container.value.command] : []
         cpu = container.value.cpu
@@ -58,7 +58,7 @@ resource "azurerm_container_app" "container_app_app" {
 
         dynamic "env" {
           for_each = container.value.envs != null ? container.value.envs : []
-          iterator = "env"
+          iterator = env
           content {
             name = env.value.name
             secret_name = env.value.secret_name
@@ -68,7 +68,7 @@ resource "azurerm_container_app" "container_app_app" {
 
         dynamic "volume_mounts" {
           for_each = container.value.volume_mounts != null ? container.value.volume_mounts : []
-          iterator = "volume_mount"
+          iterator = volume_mount
           content {
             name = volume_mount.value.name
             path = volume_mount.value.path
@@ -80,7 +80,7 @@ resource "azurerm_container_app" "container_app_app" {
 
     dynamic "volume" {
       for_each = var.volume
-      iterator = "volume"
+      iterator = volume
       content {
         name = volume.value.name
         storage_type = volume.value.storage_type
@@ -103,7 +103,7 @@ resource "azurerm_container_app" "container_app_app" {
 
   dynamic "secret" {
     for_each = length(var.secrets) > 0 ? var.secrets : []
-    iterator = "secret"
+    iterator = secret
     content {
       name = secret.value.name
       value = secret.value.value
