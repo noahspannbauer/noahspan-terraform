@@ -4,7 +4,6 @@ variable "app_subdomain_name" {
 }
 
 variable "containers" {
-  default = []
   type = list(object({
     command = optional(string)
     cpu = optional(string)

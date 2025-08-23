@@ -15,16 +15,16 @@ resource "azurerm_container_app" "container_app_app" {
     max_replicas = var.template_max_replicas
 
     dynamic "init_container" {
-      for_each = var.init_containers != null ? var.init_containers : []
+      for_each = length(var.init_containers) > 0 ? var.init_containers : []
       content {
-        command = container.value["command"] != null ? [container.value["command"]] : []
+        command = init_container.value["command"] != null ? [init_container.value["command"]] : []
         cpu = init_container.value["cpu"]
-        image = container.value["image"]
+        image = init_container.value["image"]
         memory = init_container.value["memory"]
         name = init_container.value["name"]
 
       dynamic "env" {
-        for_each = container.value["envs"] != null ? container.value["envs"] : []
+        for_each = init_container.value["envs"] != null ? init_container.value["envs"] : []
         content {
           name = env.value["name"]
           secret_name = env.value["secret_name"]
@@ -33,7 +33,7 @@ resource "azurerm_container_app" "container_app_app" {
       }
 
       dynamic "volume_mounts" {
-        for_each = container.value["volume_mounts"] != null ? container.value["volume_mounts"] : []
+        for_each = init_container.value["volume_mounts"] != null ? init_container.value["volume_mounts"] : []
         content {
           name = volume_mount.value["name"]
           path = volumn_mount.value["path"]
@@ -95,7 +95,7 @@ resource "azurerm_container_app" "container_app_app" {
   }
 
   dynamic "secret" {
-    for_each = var.secrets != null ? var.secrets : []
+    for_each = length(var.secrets) > 0 ? var.secrets : []
     content {
       name = secret.value["name"]
       value = secret.value["value"]
