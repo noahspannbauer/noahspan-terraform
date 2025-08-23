@@ -14,10 +14,10 @@ variable "share_name" {
   type = string
 }
 
-variable "storage_account_access_key" {
+variable "access_key" {
   type = string
 }
 
-variable "storage_account_name" {
+variable "account_name" {
   type = string
 }
