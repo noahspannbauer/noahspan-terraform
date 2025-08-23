@@ -22,6 +22,24 @@ resource "azurerm_container_app" "container_app_app" {
         image = container.value["image"]
         memory = init_container.value["memory"]
         name = init_container.value["name"]
+
+      dynamic "env" {
+        for_each = container.value["envs"] != null ? container.value["envs"] : []
+        content {
+          name = env.value["name"]
+          secret_name = env.value["secret_name"]
+          value = env.value["value"]
+        }
+      }
+
+      dynamic "volume_mounts" {
+        for_each = container.value["volume_mounts"] != null ? container.value["volume_mounts"] : []
+        content {
+          name = volume_mount.value["name"]
+          path = volumn_mount.value["path"]
+          sub_path = volume_mount.value["sub_path"] != null ? volume_mount.value["sub_path"] : null
+        }
+      }
       }
     }
 
@@ -47,9 +65,19 @@ resource "azurerm_container_app" "container_app_app" {
           for_each = container.value["volume_mounts"] != null ? container.value["volume_mounts"] : []
           content {
             name = volume_mount.value["name"]
-            path = volumn_mount.value["path"]
+            path = volume_mount.value["path"]
+            sub_path = volume_mount.value["sub_path"] != null ? volume_mount.value["sub_path"] : null
           }
         }
+      }
+    }
+
+    dynamic "volume" {
+      for_each = var.volume
+      content {
+        name = volume.value["name"]
+        storage_type = volume.value["storage_type"]
+        storage_name = volume.value["storage_name"]
       }
     }
   }

@@ -19,6 +19,7 @@ variable "containers" {
     volume_mounts = optional(list(object({
       name = string
       path = string
+      sub_path = optional(string)
     })))
   }))
 }
@@ -82,6 +83,7 @@ variable "init_containers" {
     volume_mounts = optional(list(object({
       name = string
       path = string
+      sub_path = optional(string)
     })))
   }))
 }
@@ -135,4 +137,14 @@ variable "template_min_replicas" {
 variable "template_max_replicas" {
   default = 1
   type = number
+}
+
+variable "volume" {
+  default = []
+  type = list(object({
+    name = string
+    storage_type = string
+    storage_name = string
+    share_name = string
+  }))
 }

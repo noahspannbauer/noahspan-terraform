@@ -12,14 +12,6 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "static_websites" {
-  default = []
-  type = list(object({
-    error_404_document = string
-    index_document = string
-  }))
-}
-
 variable "storage_account_name" {
   type = string
 }
@@ -41,6 +33,11 @@ variable "storage_containers" {
 }
 
 variable "storage_queues" {
+  default = []
+  type = list(string)
+}
+
+variable "storage_shares" {
   default = []
   type = list(string)
 }
