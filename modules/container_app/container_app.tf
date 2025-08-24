@@ -111,7 +111,7 @@ resource "azurerm_container_app" "container_app_app" {
   }
 
   lifecycle {
-    ignore_changes = var.ignore_changes
+    ignore_changes = [ template[0].container[0].image, registry.server ]
   }
 }
 
