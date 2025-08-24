@@ -18,11 +18,11 @@ variable "containers" {
     name = string
     startup_probe = optional(list(object({
       failure_count_threshold = optional(number)
-      initial_delay_seconds = optional(number)
+      initial_delay = optional(number)
       interval_seconds = optional(number)
       path = optional(string)
       port = number
-      timeout_seconds = optional(number)
+      timeout = optional(number)
       transport = string
     })))
     volume_mounts = optional(list(object({
