@@ -4,12 +4,6 @@ resource "azurerm_container_app" "container_app_app" {
   resource_group_name = data.azurerm_resource_group.resource_group.name
   revision_mode = "Single"
 
-  registry {
-    server = var.registry_server_name
-    username = var.registry_username
-    password_secret_name = var.registry_password_secret_name
-  }
-
   template {
     min_replicas = var.template_min_replicas
     max_replicas = var.template_max_replicas
@@ -101,6 +95,12 @@ resource "azurerm_container_app" "container_app_app" {
     }
   }
 
+  registry {
+    server = var.registry_server_name
+    username = var.registry_username
+    password_secret_name = var.registry_password_secret_name
+  }
+
   dynamic "secret" {
     for_each = length(var.secrets) > 0 ? var.secrets : []
     iterator = secret
@@ -111,7 +111,7 @@ resource "azurerm_container_app" "container_app_app" {
   }
 
   lifecycle {
-    ignore_changes = [ template[0].container[0].image ]
+    ignore_changes = [ template[0].container[0].image, registry.server ]
   }
 }
 
