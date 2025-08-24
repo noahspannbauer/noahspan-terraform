@@ -62,6 +62,20 @@ resource "azurerm_container_app" "container_app_app" {
           }
         }
 
+        dynamic "startup_probes" {
+          for_each = container.value.startup_probes != null ? container.value.startup_probes : []
+          iterator = startup_probe
+          content {
+            failure_count_threshold = startup_probe.value.failure_count_threshold != null ? startup_probe.value.failure_count_threshold : null
+            initial_delay_seconds = startup_probe.value.initial_delay_seconds != null ? startup_probe.value.initial_delay_seconds : null
+            interval_seconds = startup_probe.value.interval_seconds != null ? startup_probe.value.interval_seconds : null
+            path = startup_probe.value.path != null ? startup_probe.value.path : null
+            port = startup_probe.value.port
+            timeout_seconds = startup_probe.value.timeout_seconds != null ? startup_probe.value.timeout_seconds : null
+            transport = startup_probe.value.transport
+          }
+        }
+
         dynamic "volume_mounts" {
           for_each = container.value.volume_mounts != null ? container.value.volume_mounts : []
           iterator = volume_mount
