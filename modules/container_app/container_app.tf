@@ -14,7 +14,7 @@ resource "azurerm_container_app" "container_app_app" {
       content {
         command = init_container.value.command != null ? [init_container.value.command] : []
         cpu = init_container.value.cpu
-        image = init_container.value.image
+        image = "${init_container.value.image}"
         memory = init_container.value.memory
         name = init_container.value.name
 
@@ -46,7 +46,7 @@ resource "azurerm_container_app" "container_app_app" {
       content {
         command = container.value.command != null ? [container.value.command] : []
         cpu = container.value.cpu
-        image = container.value.image
+        image = "${container.value.image}"
         memory = container.value.memory
         name = container.value.name
 
@@ -96,7 +96,7 @@ resource "azurerm_container_app" "container_app_app" {
   }
 
   registry {
-    server = var.registry_server_name
+    server = "${var.registry_server_name}"
     username = var.registry_username
     password_secret_name = var.registry_password_secret_name
   }
