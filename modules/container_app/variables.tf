@@ -142,6 +142,7 @@ variable "volume" {
   default = []
   type = list(object({
     name = string
+    storage_name = string
     storage_type = string
   }))
 }
