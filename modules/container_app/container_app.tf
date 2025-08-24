@@ -24,25 +24,25 @@ resource "azurerm_container_app" "container_app_app" {
         memory = init_container.value.memory
         name = init_container.value.name
 
-      dynamic "env" {
-        for_each = init_container.value.envs != null ? init_container.value.envs : []
-        iterator = env
-        content {
-          name = env.value.name
-          secret_name = env.value.secret_name
-          value = env.value.value
+        dynamic "env" {
+          for_each = init_container.value.envs != null ? init_container.value.envs : []
+          iterator = env
+          content {
+            name = env.value.name
+            secret_name = env.value.secret_name
+            value = env.value.value
+          }
         }
-      }
 
-      dynamic "volume_mounts" {
-        for_each = init_container.value.volume_mounts != null ? init_container.value.volume_mounts : []
-        iterator = volume_mount
-        content {
-          name = volume_mount.value.name
-          path = volumne_mount.value.path
-          sub_path = volume_mount.value.sub_path != null ? volume_mount.value.sub_path : null
+        dynamic "volume_mounts" {
+          for_each = init_container.value.volume_mounts != null ? init_container.value.volume_mounts : []
+          iterator = volume_mount
+          content {
+            name = volume_mount.value.name
+            path = volume_mount.value.path
+            sub_path = volume_mount.value.sub_path != null ? volume_mount.value.sub_path : null
+          }
         }
-      }
       }
     }
 
