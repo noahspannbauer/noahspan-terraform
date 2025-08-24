@@ -83,7 +83,7 @@ resource "azurerm_container_app" "container_app_app" {
       iterator = volume
       content {
         name = volume.value.name
-        storage_name = volumn.value.storage_name
+        storage_name = volume.value.storage_name
         storage_type = volume.value.storage_type
       }
     }
