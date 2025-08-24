@@ -12,7 +12,7 @@ resource "azurerm_container_app" "container_app_app" {
       for_each = length(var.init_containers) > 0 ? var.init_containers : []
       iterator = init_container
       content {
-        command = init_container.value.command != null ? [init_container.value.command] : []
+        command = init_container.value.command != null ? init_container.value.command : []
         cpu = init_container.value.cpu
         image = "${init_container.value.image}"
         memory = init_container.value.memory
@@ -44,7 +44,7 @@ resource "azurerm_container_app" "container_app_app" {
       for_each = var.containers
       iterator = container
       content {
-        command = container.value.command != null ? [container.value.command] : []
+        command = container.value.command != null ? container.value.command : []
         cpu = container.value.cpu
         image = "${container.value.image}"
         memory = container.value.memory
