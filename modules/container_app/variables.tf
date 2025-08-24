@@ -5,6 +5,7 @@ variable "app_subdomain_name" {
 
 variable "containers" {
   type = list(object({
+    args = optional(list(string))
     command = optional(list(string))
     cpu = optional(string)
     envs = optional(list(object({
@@ -69,6 +70,7 @@ variable "ingress_transport" {
 variable "init_containers" {
   default = []
   type = list(object({
+    args = optional(list(string))
     command = optional(list(string))
     cpu = optional(string)
     envs = optional(list(object({
