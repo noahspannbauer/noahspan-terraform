@@ -46,6 +46,11 @@ variable "domain_name" {
   type = string
 }
 
+variable "ignore_changes" {
+  default = []
+  type = list(string)
+}
+
 variable "ingress_external_enabled" {
   default = false
   type = bool
