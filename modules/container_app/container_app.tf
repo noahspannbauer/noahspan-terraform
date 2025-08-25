@@ -67,6 +67,7 @@ resource "azurerm_container_app" "container_app_app" {
           iterator = startup_probe
           content {
             failure_count_threshold = startup_probe.value.failure_count_threshold != null ? startup_probe.value.failure_count_threshold : null
+            host = startup_probe.value.host != null ? startup_probe.value.host : null
             initial_delay = startup_probe.value.initial_delay != null ? startup_probe.value.initial_delay : null
             interval_seconds = startup_probe.value.interval_seconds != null ? startup_probe.value.interval_seconds : null
             path = startup_probe.value.path != null ? startup_probe.value.path : null
