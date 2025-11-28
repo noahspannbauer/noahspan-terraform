@@ -32,10 +32,6 @@ variable "app_reg_name" {
   type = string
 }
 
-variable "azuread_provider_alias" {
-  type = string
-}
-
 variable "client_id" {
   default = null
   type = string
