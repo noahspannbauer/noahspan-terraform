@@ -43,10 +43,6 @@ variable "client_secret" {
   type = string
 }
 
-variable "destination" {
-  type = string
-}
-
 variable "federated_identity_credential" {
   default = null
   type = object({
