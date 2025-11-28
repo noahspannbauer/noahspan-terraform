@@ -9,7 +9,7 @@ resource "random_uuid" "read_app_role_uuid" {}
 resource "random_uuid" "write_app_role_uuid" {}
 
 resource "azuread_application" "app_registration" {
-  display_name = module.environment.app_reg_name
+  display_name = var.app_reg_name
   owners = [data.azuread_client_config.current.object_id]
   sign_in_audience = "AzureADMyOrg"
 
