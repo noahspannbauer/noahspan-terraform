@@ -18,7 +18,7 @@ resource "azuread_application" "app_registration" {
 
     dynamic "oauth2_permission_scope" {
       for_each = var.oauth2_permission_scopes != null ? var.oauth2_permission_scopes : []
-      iterator = oauth2_permission_scope
+
       content {
         admin_consent_description = oauth2_permission_scope.value.admin_consent_description
         admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
@@ -34,7 +34,7 @@ resource "azuread_application" "app_registration" {
 
   dynamic "app_role" {
     for_each = var.app_roles != null ? var.app_roles : []
-    iterator = app_role
+
     content {
       allowed_member_types = app_role.value.allowed_member_types
       description = app_role.value.description
@@ -70,7 +70,7 @@ resource "azuread_application" "app_registration" {
 
     dynamic "resource_access" {
       for_each = var.additional_resource_access != null ? var.additional_resource_access : []
-      iterator = resource_access
+
       content {
         id = resource_access.value.id
         type = resource_access.value.type
