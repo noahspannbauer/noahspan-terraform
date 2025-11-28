@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azuread = {
       source = "hashicorp/azuread"
-      configuration_aliases = [ azuread.entra ]
+      configuration_aliases = [ azuread ]
     }
   }
 }

@@ -1,10 +1,6 @@
-data "azuread_client_config" "current" {
-  provider = var.destination == "external" ? azuread.external : azuread.internal
-}
+data "azuread_client_config" "current" {}
 
-data "azuread_application_published_app_ids" "well_known" {
-  provider = azuread.entra
-}
+data "azuread_application_published_app_ids" "well_known" {}
 
 resource "random_uuid" "oauth2_permission_scope_uuid" {}
 
@@ -13,7 +9,6 @@ resource "random_uuid" "read_app_role_uuid" {}
 resource "random_uuid" "write_app_role_uuid" {}
 
 resource "azuread_application" "app_registration" {
-  provider = azuread.entra
   display_name = module.environment.app_reg_name
   owners = [data.azuread_client_config.current.object_id]
   sign_in_audience = "AzureADMyOrg"
@@ -103,14 +98,12 @@ resource "azuread_application" "app_registration" {
 
 resource "azuread_application_identifier_uri" "app_registration_identifier_uri" {
   count = var.enable_identifier_uri != null ? 1 : 0
-  provider = azuread.entra
   application_id = azuread_application.app_registration.id
   identifier_uri = "api://${azuread_application.app_registration.client_id}"
 }
 
 resource "azuread_application_federated_identity_credential" "github_actions_federated_identity_credential" {
   count = var.federated_identity_credential != null ? 1 : 0
-  provider = azuread.entra
   application_id = azuread_application.app_registration.id
   display_name   = "github-actions"
   description    = "Deployments for flying repo"
@@ -121,7 +114,6 @@ resource "azuread_application_federated_identity_credential" "github_actions_fed
 
 resource "azuread_application_password" "app_registration_secret" {
   count = var.secret != null ? 1 : 0
-  provider = azuread.entra
   application_id = azuread_application.app_registration.id
   display_name = var.secret.display_name
   end_date = var.secret.end_date != null ? var.secret.end_date : null
