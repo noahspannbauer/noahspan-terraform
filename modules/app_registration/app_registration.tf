@@ -105,11 +105,11 @@ resource "azuread_application_identifier_uri" "app_registration_identifier_uri" 
 resource "azuread_application_federated_identity_credential" "github_actions_federated_identity_credential" {
   count = var.federated_identity_credential != null ? 1 : 0
   application_id = azuread_application.app_registration.id
-  display_name   = "github-actions"
-  description    = "Deployments for flying repo"
-  audiences      = ["api://AzureADTokenExchange"]
-  issuer         = "https://token.actions.githubusercontent.com"
-  subject        = module.environment.app_reg_federated_identity_credential_subject
+  display_name   = var.federated_identity_credential.display_name
+  description    = var.federated_identity_credential.description
+  audiences      = var.federated_identity_credential.audiences
+  issuer         = var.federated_identity_credential.issuer
+  subject        = var.federated_identity_credential.subject
 }
 
 resource "azuread_application_password" "app_registration_secret" {
