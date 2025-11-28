@@ -1,9 +1,11 @@
 variable "access_token_issuance_enabled" {
-  type = optional(bool)
+  default = null
+  type = bool
 }
 
 variable "id_token_issuance_enabled" {
-  type = optional(bool)
+  default = null
+  type = bool
 }
 
 variable "additional_resource_access" {
@@ -33,12 +35,14 @@ variable "azuread_provider_alias" {
 }
 
 variable "client_id" {
-  type = optional(string)
+  default = null
+  type = string
 }
 
 variable "client_secret" {
+  default = null
   sensitive = true
-  type = opitonal(string)
+  type = string
 }
 
 variable "destination" {
@@ -56,6 +60,7 @@ variable "federated_identity_credential" {
 }
 
 variable "enable_identifier_uri" {
+  default = null
   type = bool
 }
 
@@ -80,7 +85,8 @@ variable "secret" {
 }
 
 variable "redirect_uris" {
-  type = optional(list(string))
+  default = null
+  type = list(string)
 }
 
 variable "tenant_id" {
